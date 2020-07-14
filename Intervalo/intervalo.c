@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Intervalo *intervalo_crear(double extIzq, double extDer) {
+Intervalo *intervalo_crear(int extIzq, int extDer) {
   Intervalo *nuevo = malloc(sizeof(Intervalo));
-  nuevo->extIzq = extIzq;
-  nuevo->extDer = extDer;
+  nuevo->inicio = extIzq;
+  nuevo->final = extDer;
 
   return nuevo;
 }
@@ -15,20 +15,24 @@ void intervalo_destruir(Intervalo * intervalo) {
 }
 
 int intervalo_validar(Intervalo * intervalo) {
-  return intervalo->extIzq <= intervalo->extDer;
+  return intervalo->inicio < intervalo->final;
 }
 
 int intervalo_interseca(Intervalo * intervaloA, Intervalo * intervaloB) {
-  return !(intervaloA->extDer < intervaloB->extIzq
-           || intervaloA->extIzq > intervaloB->extDer);
+  return !(intervaloA->final < intervaloB->inicio
+           || intervaloA->inicio > intervaloB->final);
 }
 
 void intervalo_imprimir(Intervalo * intervalo) {
-  printf("INTERVALO: [%lf,%lf]\n", intervalo->extIzq,
-         intervalo->extDer);
+  if(intervalo->inicio == intervalo->final){
+    printf("%d\n", intervalo->inicio);
+  }
+  else{
+    printf("%d:%d\n", intervalo->inicio, intervalo->final);
+  }
 }
 
 int intervalo_coinciden(Intervalo * intervaloA, Intervalo * intervaloB) {
-  return intervaloA->extIzq == intervaloB->extIzq
-      && intervaloA->extDer == intervaloB->extDer;
+  return intervaloA->inicio == intervaloB->inicio
+      && intervaloA->final == intervaloB->final;
 }

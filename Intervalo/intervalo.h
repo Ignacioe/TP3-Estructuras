@@ -9,7 +9,7 @@ typedef struct {
 /**
  * Devuelve un intervalo formado por los extremos dados.
  */
-Intervalo *intervalo_crear(double inicio, double final);
+Intervalo *intervalo_crear(int inicio, int final);
 
 /**
  * Destruye el intervalo dado
