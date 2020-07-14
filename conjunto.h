@@ -40,7 +40,7 @@ Conjunto *conjunto_resta(Conjunto a, Conjunto b);
 /**
  * Devuelve el complemento de un conjunto.
  */
-Conjunto *conjunto_interseccion(Conjunto dato);
+Conjunto *conjunto_complemento(Conjunto dato);
 
 /**
  * Imprime en pantalla un conjunto.
