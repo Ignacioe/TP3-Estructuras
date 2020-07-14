@@ -6,11 +6,13 @@ typedef struct {
   int final;
 } Intervalo;
 
-typedef struct _Elemento {
-    Intervalo* dato;
-    struct _Elemento *sig;
+typedef struct _INodo {
+  Intervalo *dato;
+  double maxExt;
+  int altura;
+  struct _INodo *izq;
+  struct _INodo *der;
 } Conjunto;
-
 
 /**
  * Crea un nuevo conjunto definido por extension.
