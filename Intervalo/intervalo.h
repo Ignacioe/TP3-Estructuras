@@ -36,4 +36,5 @@ void intervalo_imprimir(Intervalo * intervalo);
  */
 int intervalo_coinciden(Intervalo * intervaloA, Intervalo * intervaloB);
 
+
 #endif                          /* __INTERVALO_H__ */

@@ -1,23 +1,25 @@
 #ifndef __CONJUNTO_H__
 #define __CONJUNTO_H__
 
-typedef struct {
-  int inicio;
-  int final;
-} Intervalo;
-
-typedef struct _INodo {
+typedef struct _GNodo {
   Intervalo *dato;
-  double maxExt;
-  int altura;
-  struct _INodo *izq;
-  struct _INodo *der;
-} Conjunto;
+  struct _GNodo *sig;
+  struct _GNodo *ant;
+} GNodo;
+
+typedef struct {
+  GNodo *primero;
+  GNodo *ultimo;
+  int cantidad;
+} Extremos;
+
+typedef Extremos *Conjunto;
+typedef int (*Compara) (void *dato1, void *dato2);
 
 /**
  * Crea un nuevo conjunto definido por extension.
  */
-Conjunto *conjunto_extension(char* datos);
+Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo interv);
 
 /**
  * Crea un nuevo conjunto definido por comprension.
@@ -50,8 +52,13 @@ Conjunto *conjunto_complemento(Conjunto dato);
 void conjunto_imprimir(Conjunto dato);
 
 /**
- * Reordena un conjunto de acuerdo al orden de los numeros naturales.
+ * Recorre la lista juntando los intervalos solapados
  */
-Conjunto *conjunto_ordenar(Conjunto dato);
+Conjunto conjunto_colapsar(Conjunto conj);
+
+/**
+ * Inicializa un conjunto
+ */
+Conjunto conjunto_inicializar();
 
 #endif                          /* __CONJUNTO_H__ */
