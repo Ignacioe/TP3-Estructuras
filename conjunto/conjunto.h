@@ -1,6 +1,8 @@
 #ifndef __CONJUNTO_H__
 #define __CONJUNTO_H__
 
+#include "../Intervalo/intervalo.h"
+
 typedef struct _GNodo {
   Intervalo *dato;
   struct _GNodo *sig;
@@ -14,37 +16,38 @@ typedef struct {
 } Extremos;
 
 typedef Extremos *Conjunto;
+
 typedef int (*Compara) (void *dato1, void *dato2);
 
 /**
  * Crea un nuevo conjunto definido por extension.
  */
-Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo interv);
+Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
 
 /**
  * Crea un nuevo conjunto definido por comprension.
  */
-Conjunto *conjunto_comprension(char* ley);
+Conjunto conjunto_comprension(char* ley);
 
 /**
  * Devuelve la union de dos conjuntos.
  */
-Conjunto *conjunto_union(Conjunto a, Conjunto b);
+Conjunto conjunto_union(Conjunto a, Conjunto b);
 
 /**
  * Devuelve la interseccion de dos conjuntos.
  */
-Conjunto *conjunto_interseccion(Conjunto a, Conjunto b);
+Conjunto conjunto_interseccion(Conjunto a, Conjunto b);
 
 /**
  * Devuelve la resta de dos conjuntos.
  */
-Conjunto *conjunto_resta(Conjunto a, Conjunto b);
+Conjunto conjunto_resta(Conjunto a, Conjunto b);
 
 /**
  * Devuelve el complemento de un conjunto.
  */
-Conjunto *conjunto_complemento(Conjunto dato);
+Conjunto conjunto_complemento(Conjunto dato);
 
 /**
  * Imprime en pantalla un conjunto.

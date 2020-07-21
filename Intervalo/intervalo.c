@@ -32,7 +32,11 @@ void intervalo_imprimir(Intervalo * intervalo) {
   }
 }
 
-int intervalo_coinciden(Intervalo * intervaloA, Intervalo * intervaloB) {
+int intervalo_coinciden(Intervalo *intervaloA, Intervalo *intervaloB) {
   return intervaloA->inicio == intervaloB->inicio
       && intervaloA->final == intervaloB->final;
+}
+
+int intervalo_comparar(Intervalo *intervaloA, Intervalo *intervaloB) {
+  return (intervaloA->inicio < intervaloB->inicio ||(intervaloA->final < intervaloB->final && intervaloA->inicio == intervaloB->inicio));
 }

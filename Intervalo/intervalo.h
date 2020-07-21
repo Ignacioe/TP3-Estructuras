@@ -36,5 +36,10 @@ void intervalo_imprimir(Intervalo * intervalo);
  */
 int intervalo_coinciden(Intervalo * intervaloA, Intervalo * intervaloB);
 
+/**
+ * Compara dos intervalos y calcula cual es el "menor"
+ */
+int intervalo_comparar(Intervalo *intervaloA, Intervalo *intervaloB);
+
 
 #endif                          /* __INTERVALO_H__ */

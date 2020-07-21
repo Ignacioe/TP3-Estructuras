@@ -1,5 +1,4 @@
 #include "conjunto.h"
-#include "intervalo.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -104,22 +103,22 @@ Conjunto conjunto_mergeSort(Conjunto conj, Compara c) {
 }
 
 Conjunto conjunto_colapsar(Conjunto conj){
-    GNodo *nodo = conj->primero;
-    GNodo *aux;
-    while(nodo->sig != NULL){
-        aux = nodo->sig;
-        if(nodo->dato->final >= aux->dato->inicio){
-            nodo->dato->final = aux->dato->final;
-            nodo->sig = aux->sig;
-            aux->sig->ant = nodo;
-            intervalo_destruir(aux->dato);
-            free(aux);
-            conj->cantidad --;
-        }
-        else{
-            nodo = aux;
-        }
+  GNodo *nodo = conj->primero;
+  GNodo *aux;
+  while(nodo->sig != NULL){
+    aux = nodo->sig;
+    if(nodo->dato->final >= aux->dato->inicio){
+      nodo->dato->final = aux->dato->final;
+      nodo->sig = aux->sig;
+      aux->sig->ant = nodo;
+      intervalo_destruir(aux->dato);
+      free(aux);
+      conj->cantidad --;
     }
+    else{
+      nodo = aux;
+    }
+  }
 }
 
 Conjunto conjunto_inicializar(){
@@ -128,3 +127,20 @@ Conjunto conjunto_inicializar(){
     conj->ultimo = NULL;
     conj->cantidad = 0;
 }
+
+Conjunto conjunto_union(Conjunto a, Conjunto b){
+  Conjunto nuevo = malloc(sizeof(Conjunto));
+  GNodo *indexA = a->primero, *indexB = b->primero;
+  while (indexA != NULL){
+    nuevo = conjunto_agregar_intervalo(nuevo, indexA->dato);
+    indexA = indexA->sig;
+  }
+  while (indexB != NULL){
+    nuevo = conjunto_agregar_intervalo(nuevo, indexB->dato);
+    indexB = indexA->sig;
+  }
+  nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
+  nuevo = conjunto_colapsar(nuevo);
+  return nuevo;
+}
+
