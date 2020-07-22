@@ -10,20 +10,36 @@ Intervalo *intervalo_crear(int extIzq, int extDer) {
   return nuevo;
 }
 
-void intervalo_destruir(Intervalo * intervalo) {
+void intervalo_destruir(Intervalo *intervalo) {
   free(intervalo);
 }
 
-int intervalo_validar(Intervalo * intervalo) {
+int intervalo_validar(Intervalo *intervalo) {
   return intervalo->inicio < intervalo->final;
 }
 
-int intervalo_interseca(Intervalo * intervaloA, Intervalo * intervaloB) {
+int intervalo_interseca(Intervalo *intervaloA, Intervalo *intervaloB) {
   return !(intervaloA->final < intervaloB->inicio
            || intervaloA->inicio > intervaloB->final);
 }
 
-void intervalo_imprimir(Intervalo * intervalo) {
+Intervalo *intervalo_interseccion(Intervalo *intervaloA, Intervalo *intervaloB){
+  int inicio, final;
+  if(intervaloA->inicio < intervaloB->inicio){
+    inicio = intervaloB->inicio;
+  } else {
+    inicio = intervaloA->inicio;
+  }
+  if(intervaloA->final < intervaloB->final){
+    final = intervaloA->final;
+  } else {
+    final = intervaloB->final;
+  }
+  Intervalo *interseccion = intervalo_crear(inicio, final);
+  return interseccion;
+}
+
+void intervalo_imprimir(Intervalo *intervalo) {
   if(intervalo->inicio == intervalo->final){
     printf("%d\n", intervalo->inicio);
   }

@@ -128,19 +128,39 @@ Conjunto conjunto_inicializar(){
     conj->cantidad = 0;
 }
 
-Conjunto conjunto_union(Conjunto a, Conjunto b){
+Conjunto conjunto_union(Conjunto conjuntoA, Conjunto conjuntoB){
   Conjunto nuevo = malloc(sizeof(Conjunto));
-  GNodo *indexA = a->primero, *indexB = b->primero;
+  GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
   while (indexA != NULL){
     nuevo = conjunto_agregar_intervalo(nuevo, indexA->dato);
     indexA = indexA->sig;
   }
   while (indexB != NULL){
     nuevo = conjunto_agregar_intervalo(nuevo, indexB->dato);
-    indexB = indexA->sig;
+    indexB = indexB->sig;
   }
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
   nuevo = conjunto_colapsar(nuevo);
   return nuevo;
 }
 
+Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
+  Conjunto nuevo = conjunto_inicializar();
+  GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
+  Intervalo *interseccion;
+  while(indexA != NULL && indexB != NULL){
+    if(intervalo_interseca(indexA->dato, indexB->dato)){
+      interseccion = intervalo_interseccion(indexA->dato, indexB->dato);
+      nuevo = conjunto_agregar_intervalo(nuevo, interseccion);
+    }
+    if(indexA->dato->final > indexB->dato->final){
+      indexB = indexB->sig;
+    } else {
+      indexA = indexA->sig;
+    }    
+  }
+
+  nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
+  nuevo = conjunto_colapsar(nuevo);
+  return nuevo;
+}
