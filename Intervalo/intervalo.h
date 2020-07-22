@@ -27,6 +27,11 @@ int intervalo_validar(Intervalo * intervalo);
 int intervalo_interseca(Intervalo * intervaloA, Intervalo * intervaloB);
 
 /**
+ * Devuelve la interseccion entre dos intervalos
+ */
+Intervalo *intervalo_interseccion(Intervalo *intervaloA, Intervalo *intervaloB);
+
+/**
  * Imprime en pantalla el intervalo dado
  */
 void intervalo_imprimir(Intervalo * intervalo);

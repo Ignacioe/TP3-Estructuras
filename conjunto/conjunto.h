@@ -17,7 +17,7 @@ typedef struct {
 
 typedef Extremos *Conjunto;
 
-typedef int (*Compara) (void *dato1, void *dato2);
+typedef int (*Compara) (Intervalo *dato1, Intervalo *dato2);
 
 /**
  * Crea un nuevo conjunto definido por extension.
