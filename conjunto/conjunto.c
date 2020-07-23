@@ -19,10 +19,13 @@ Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
 
 void conjunto_imprimir(Conjunto conj){
     GNodo *nodo = conj->primero;
-    while(nodo->sig != NULL){
-        intervalo_imprimir(nodo->dato);
-        nodo = nodo->sig;
+    printf("[");
+    while(nodo != NULL){
+      intervalo_imprimir(nodo->dato);
+      if(nodo->sig != NULL) printf(",");
+      nodo = nodo->sig;
     }
+    printf("]\n");
 }
 
 Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
@@ -107,10 +110,10 @@ Conjunto conjunto_colapsar(Conjunto conj){
   GNodo *aux;
   while(nodo->sig != NULL){
     aux = nodo->sig;
-    if(nodo->dato->final >= aux->dato->inicio){
-      nodo->dato->final = aux->dato->final;
+    if(nodo->dato->final +1 >= aux->dato->inicio){
+      if(nodo->dato->final < aux->dato->final) nodo->dato->final = aux->dato->final;
       nodo->sig = aux->sig;
-      aux->sig->ant = nodo;
+      if(aux->sig != NULL) aux->sig->ant = nodo;
       intervalo_destruir(aux->dato);
       free(aux);
       conj->cantidad --;
@@ -119,13 +122,15 @@ Conjunto conjunto_colapsar(Conjunto conj){
       nodo = aux;
     }
   }
+  return conj;
 }
 
 Conjunto conjunto_inicializar(){
-    Conjunto conj = malloc(sizeof(Conjunto));
-    conj->primero = NULL;
-    conj->ultimo = NULL;
-    conj->cantidad = 0;
+  Conjunto conj = malloc(sizeof(Conjunto));
+  conj->primero = NULL;
+  conj->ultimo = NULL;
+  conj->cantidad = 0;
+  return conj;
 }
 
 Conjunto conjunto_union(Conjunto conjuntoA, Conjunto conjuntoB){

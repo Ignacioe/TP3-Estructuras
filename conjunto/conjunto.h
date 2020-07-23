@@ -30,6 +30,41 @@ Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
 Conjunto conjunto_comprension(char* ley);
 
 /**
+ * Imprime en pantalla un conjunto.
+ */
+void conjunto_imprimir(Conjunto dato);
+
+/**
+ * 
+ */
+Conjunto conjunto_append(GNodo *nodo, Conjunto conj);
+
+/**
+ * 
+ */
+Conjunto conjunto_merge(Conjunto conj1, Conjunto conj2, Compara c);
+
+/**
+ * 
+ */
+Conjunto conjunto_split(Conjunto conj);
+
+/**
+ * 
+ */
+Conjunto conjunto_mergeSort(Conjunto conj, Compara c);
+
+/**
+ * Recorre la lista juntando los intervalos solapados
+ */
+Conjunto conjunto_colapsar(Conjunto conj);
+
+/**
+ * Inicializa un conjunto
+ */
+Conjunto conjunto_inicializar();
+
+/**
  * Devuelve la union de dos conjuntos.
  */
 Conjunto conjunto_union(Conjunto a, Conjunto b);
@@ -48,20 +83,5 @@ Conjunto conjunto_resta(Conjunto a, Conjunto b);
  * Devuelve el complemento de un conjunto.
  */
 Conjunto conjunto_complemento(Conjunto dato);
-
-/**
- * Imprime en pantalla un conjunto.
- */
-void conjunto_imprimir(Conjunto dato);
-
-/**
- * Recorre la lista juntando los intervalos solapados
- */
-Conjunto conjunto_colapsar(Conjunto conj);
-
-/**
- * Inicializa un conjunto
- */
-Conjunto conjunto_inicializar();
 
 #endif                          /* __CONJUNTO_H__ */

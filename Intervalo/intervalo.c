@@ -41,10 +41,10 @@ Intervalo *intervalo_interseccion(Intervalo *intervaloA, Intervalo *intervaloB){
 
 void intervalo_imprimir(Intervalo *intervalo) {
   if(intervalo->inicio == intervalo->final){
-    printf("%d\n", intervalo->inicio);
+    printf("%d", intervalo->inicio);
   }
   else{
-    printf("%d:%d\n", intervalo->inicio, intervalo->final);
+    printf("%d:%d", intervalo->inicio, intervalo->final);
   }
 }
 
@@ -54,5 +54,7 @@ int intervalo_coinciden(Intervalo *intervaloA, Intervalo *intervaloB) {
 }
 
 int intervalo_comparar(Intervalo *intervaloA, Intervalo *intervaloB) {
-  return (intervaloA->inicio < intervaloB->inicio ||(intervaloA->final < intervaloB->final && intervaloA->inicio == intervaloB->inicio));
+  return (intervaloA->inicio > intervaloB->inicio ||
+         (intervaloA->final > intervaloB->final &&
+         intervaloA->inicio == intervaloB->inicio));
 }
