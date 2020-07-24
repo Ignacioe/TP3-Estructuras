@@ -163,7 +163,6 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
       indexA = indexA->sig;
     }    
   }
-
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
   conjunto_colapsar(nuevo);
   return nuevo;
