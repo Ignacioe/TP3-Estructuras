@@ -7,26 +7,51 @@
 
 int main(){
     Conjunto conj = conjunto_inicializar();
-    Conjunto conj2 = conjunto_inicializar();
-    Intervalo *int1 = intervalo_crear(9,10);
-    Intervalo *int2 = intervalo_crear(4,7);    
-    Intervalo *int3 = intervalo_crear(1,3);
-    Intervalo *int4 = intervalo_crear(6,7);
-    conj = conjunto_agregar_intervalo(conj, int1);
-    conj = conjunto_agregar_intervalo(conj, int2);
-    conj2 = conjunto_agregar_intervalo(conj2, int3);
-    conj2 = conjunto_agregar_intervalo(conj2, int4);
+    Intervalo *inter1 = intervalo_crear(10,11);
+    Intervalo *inter2 = intervalo_crear(11,12);    
+    Intervalo *inter3 = intervalo_crear(12,13);
+    Intervalo *inter4 = intervalo_crear(13,14);
+    Intervalo *inter5 = intervalo_crear(1,2);
+    Intervalo *inter6 = intervalo_crear(2,3);    
+    Intervalo *inter7 = intervalo_crear(3,4);
+    Intervalo *inter8 = intervalo_crear(4,5);
 
+    printf("Conjunto 1: \n");
+    conjunto_agregar_intervalo(conj, inter4);
+    conjunto_imprimir(conj);
+    conjunto_agregar_intervalo(conj, inter3);
+    conjunto_imprimir(conj);
+    conjunto_agregar_intervalo(conj, inter2);
+    conjunto_imprimir(conj);
+    conjunto_agregar_intervalo(conj, inter1);
+    conjunto_imprimir(conj);
+    printf("Ordeno: \n");
     conj = conjunto_mergeSort(conj, &intervalo_comparar);
-    conj = conjunto_colapsar(conj);
+    conjunto_imprimir(conj);
+    printf("Colapso: \n");
+    conjunto_colapsar(conj);
     conjunto_imprimir(conj);
 
+
+    Conjunto conj2 = conjunto_inicializar();
+    printf("\nConjunto 2: \n");
+    conjunto_agregar_intervalo(conj2, inter8);
+    conjunto_imprimir(conj2);
+    conjunto_agregar_intervalo(conj2, inter7);
+    conjunto_imprimir(conj2);
+    conjunto_agregar_intervalo(conj2, inter6);
+    conjunto_imprimir(conj2);
+    conjunto_agregar_intervalo(conj2, inter5);
+    conjunto_imprimir(conj2);
+    printf("Ordeno: \n");
     conj2 = conjunto_mergeSort(conj2, &intervalo_comparar);
-    conj2 = conjunto_colapsar(conj2);
+    conjunto_imprimir(conj2);
+    printf("Colapso: \n");
+    conjunto_colapsar(conj2);
     conjunto_imprimir(conj2);
 
-    Conjunto conjUnion = conjunto_union(conj, conj2);
     printf("Union: ");
+    Conjunto conjUnion = conjunto_union(conj, conj2);
     conjunto_imprimir(conjUnion);
 
     printf("Fin\n");

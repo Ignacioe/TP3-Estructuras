@@ -20,9 +20,9 @@ typedef Extremos *Conjunto;
 typedef int (*Compara) (Intervalo *dato1, Intervalo *dato2);
 
 /**
- * Crea un nuevo conjunto definido por extension.
+ * Agrega un intervalo a un conjunto.
  */
-Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
+void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
 
 /**
  * Crea un nuevo conjunto definido por comprension.
@@ -57,7 +57,7 @@ Conjunto conjunto_mergeSort(Conjunto conj, Compara c);
 /**
  * Recorre la lista juntando los intervalos solapados
  */
-Conjunto conjunto_colapsar(Conjunto conj);
+void conjunto_colapsar(Conjunto conj);
 
 /**
  * Inicializa un conjunto

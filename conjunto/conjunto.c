@@ -3,29 +3,29 @@
 #include <stdio.h>
 #include <string.h>
 
-Conjunto conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
-    GNodo *nuevo = malloc(sizeof(GNodo));
-    nuevo->dato = interv;
-    nuevo->sig= NULL;
-    nuevo->ant = conj->ultimo;
-    if (conj->ultimo != NULL) 
-        conj->ultimo->sig = nuevo;
-    if (conj->primero == NULL) 
-        conj->primero = nuevo;
-    conj->cantidad ++;
-    conj->ultimo = nuevo;
-    return conj;
+void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
+  GNodo *nuevo = malloc(sizeof(GNodo));
+  nuevo->dato = interv;
+  nuevo->sig = NULL;
+  nuevo->ant = conj->ultimo;
+  if (conj->ultimo != NULL)
+    conj->ultimo->sig = nuevo;
+  if (conj->primero == NULL) {
+    conj->primero = nuevo;
+  }
+  conj->cantidad ++;
+  conj->ultimo = nuevo;
 }
 
 void conjunto_imprimir(Conjunto conj){
-    GNodo *nodo = conj->primero;
-    printf("[");
-    while(nodo != NULL){
-      intervalo_imprimir(nodo->dato);
-      if(nodo->sig != NULL) printf(",");
-      nodo = nodo->sig;
-    }
-    printf("]\n");
+  GNodo *nodo = conj->primero;
+  printf("[");
+  while(nodo != NULL){
+    intervalo_imprimir(nodo->dato);
+    if(nodo->sig != NULL) printf(",");
+    nodo = nodo->sig;
+  }
+  printf("]\n");
 }
 
 Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
@@ -105,10 +105,11 @@ Conjunto conjunto_mergeSort(Conjunto conj, Compara c) {
   return conj;
 }
 
-Conjunto conjunto_colapsar(Conjunto conj){
+void conjunto_colapsar(Conjunto conj){
   GNodo *nodo = conj->primero;
   GNodo *aux;
   while(nodo->sig != NULL){
+    printf("cant entrada : %d \n", conj->cantidad);
     aux = nodo->sig;
     if(nodo->dato->final +1 >= aux->dato->inicio){
       if(nodo->dato->final < aux->dato->final) nodo->dato->final = aux->dato->final;
@@ -121,8 +122,11 @@ Conjunto conjunto_colapsar(Conjunto conj){
     else{
       nodo = aux;
     }
+    conjunto_imprimir(conj);
+    printf("cant salida : %d \n", conj->cantidad);
   }
-  return conj;
+  printf("Conjunto final: \n");
+  conjunto_imprimir(conj);
 }
 
 Conjunto conjunto_inicializar(){
@@ -134,18 +138,18 @@ Conjunto conjunto_inicializar(){
 }
 
 Conjunto conjunto_union(Conjunto conjuntoA, Conjunto conjuntoB){
-  Conjunto nuevo = malloc(sizeof(Conjunto));
+  Conjunto nuevo = conjunto_inicializar();
   GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
   while (indexA != NULL){
-    nuevo = conjunto_agregar_intervalo(nuevo, indexA->dato);
+    conjunto_agregar_intervalo(nuevo, indexA->dato);
     indexA = indexA->sig;
   }
   while (indexB != NULL){
-    nuevo = conjunto_agregar_intervalo(nuevo, indexB->dato);
+    conjunto_agregar_intervalo(nuevo, indexB->dato);
     indexB = indexB->sig;
   }
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
-  nuevo = conjunto_colapsar(nuevo);
+  conjunto_colapsar(nuevo);
   return nuevo;
 }
 
@@ -156,7 +160,7 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
   while(indexA != NULL && indexB != NULL){
     if(intervalo_interseca(indexA->dato, indexB->dato)){
       interseccion = intervalo_interseccion(indexA->dato, indexB->dato);
-      nuevo = conjunto_agregar_intervalo(nuevo, interseccion);
+      conjunto_agregar_intervalo(nuevo, interseccion);
     }
     if(indexA->dato->final > indexB->dato->final){
       indexB = indexB->sig;
@@ -166,6 +170,6 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
   }
 
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
-  nuevo = conjunto_colapsar(nuevo);
+  conjunto_colapsar(nuevo);
   return nuevo;
 }
