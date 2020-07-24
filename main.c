@@ -7,11 +7,11 @@
 
 int main(){
     Conjunto conj = conjunto_inicializar();
-    Intervalo *inter1 = intervalo_crear(10,11);
-    Intervalo *inter2 = intervalo_crear(11,12);    
-    Intervalo *inter3 = intervalo_crear(12,13);
-    Intervalo *inter4 = intervalo_crear(13,14);
-    Intervalo *inter5 = intervalo_crear(1,2);
+    Intervalo *inter1 = intervalo_crear(1,10);
+    Intervalo *inter2 = intervalo_crear(6,8);    
+    Intervalo *inter3 = intervalo_crear(12,14);
+    Intervalo *inter4 = intervalo_crear(16,17);
+    Intervalo *inter5 = intervalo_crear(9,12);
     Intervalo *inter6 = intervalo_crear(2,3);    
     Intervalo *inter7 = intervalo_crear(3,4);
     Intervalo *inter8 = intervalo_crear(4,5);
@@ -53,6 +53,10 @@ int main(){
     printf("Union: ");
     Conjunto conjUnion = conjunto_union(conj, conj2);
     conjunto_imprimir(conjUnion);
+
+    printf("Interseccion: ");
+    Conjunto conjInter = conjunto_interseccion(conj, conj2);
+    conjunto_imprimir(conjInter);
 
     printf("Fin\n");
 }

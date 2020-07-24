@@ -109,7 +109,6 @@ void conjunto_colapsar(Conjunto conj){
   GNodo *nodo = conj->primero;
   GNodo *aux;
   while(nodo->sig != NULL){
-    printf("cant entrada : %d \n", conj->cantidad);
     aux = nodo->sig;
     if(nodo->dato->final +1 >= aux->dato->inicio){
       if(nodo->dato->final < aux->dato->final) nodo->dato->final = aux->dato->final;
@@ -122,15 +121,11 @@ void conjunto_colapsar(Conjunto conj){
     else{
       nodo = aux;
     }
-    conjunto_imprimir(conj);
-    printf("cant salida : %d \n", conj->cantidad);
   }
-  printf("Conjunto final: \n");
-  conjunto_imprimir(conj);
 }
 
 Conjunto conjunto_inicializar(){
-  Conjunto conj = malloc(sizeof(Conjunto));
+  Conjunto conj = malloc(sizeof(Extremos));
   conj->primero = NULL;
   conj->ultimo = NULL;
   conj->cantidad = 0;
