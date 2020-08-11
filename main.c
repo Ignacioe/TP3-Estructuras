@@ -18,11 +18,8 @@ int main(){
 
     printf("Conjunto 1: \n");
     conjunto_agregar_intervalo(conj, inter4);
-    conjunto_imprimir(conj);
     conjunto_agregar_intervalo(conj, inter3);
-    conjunto_imprimir(conj);
     conjunto_agregar_intervalo(conj, inter2);
-    conjunto_imprimir(conj);
     conjunto_agregar_intervalo(conj, inter1);
     conjunto_imprimir(conj);
     printf("Ordeno: \n");
@@ -36,11 +33,8 @@ int main(){
     Conjunto conj2 = conjunto_inicializar();
     printf("\nConjunto 2: \n");
     conjunto_agregar_intervalo(conj2, inter8);
-    conjunto_imprimir(conj2);
     conjunto_agregar_intervalo(conj2, inter7);
-    conjunto_imprimir(conj2);
     conjunto_agregar_intervalo(conj2, inter6);
-    conjunto_imprimir(conj2);
     conjunto_agregar_intervalo(conj2, inter5);
     conjunto_imprimir(conj2);
     printf("Ordeno: \n");

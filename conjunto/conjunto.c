@@ -153,6 +153,11 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
   GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
   Intervalo *interseccion;
   while(indexA != NULL && indexB != NULL){
+    printf("Entro con: \n");
+    intervalo_imprimir(indexA->dato);
+    printf("\n");
+    intervalo_imprimir(indexB->dato);
+    printf("\n");
     if(intervalo_interseca(indexA->dato, indexB->dato)){
       interseccion = intervalo_interseccion(indexA->dato, indexB->dato);
       conjunto_agregar_intervalo(nuevo, interseccion);
