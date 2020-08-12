@@ -21,11 +21,11 @@ int main(){
     conjunto_agregar_intervalo(conj, inter3);
     conjunto_agregar_intervalo(conj, inter2);
     conjunto_agregar_intervalo(conj, inter1);
-    conjunto_imprimir(conj);
-    printf("Ordeno: \n");
+    //conjunto_imprimir(conj);
+    //printf("Ordeno: \n");
     conj = conjunto_mergeSort(conj, &intervalo_comparar);
-    conjunto_imprimir(conj);
-    printf("Colapso: \n");
+    //conjunto_imprimir(conj);
+    //printf("Colapso: \n");
     conjunto_colapsar(conj);
     conjunto_imprimir(conj);
 
@@ -36,13 +36,14 @@ int main(){
     conjunto_agregar_intervalo(conj2, inter7);
     conjunto_agregar_intervalo(conj2, inter6);
     conjunto_agregar_intervalo(conj2, inter5);
-    conjunto_imprimir(conj2);
-    printf("Ordeno: \n");
+    //conjunto_imprimir(conj2);
+    //printf("Ordeno: \n");
     conj2 = conjunto_mergeSort(conj2, &intervalo_comparar);
-    conjunto_imprimir(conj2);
-    printf("Colapso: \n");
+    //conjunto_imprimir(conj2);
+    //printf("Colapso: \n");
     conjunto_colapsar(conj2);
     conjunto_imprimir(conj2);
+    printf("\n");
 
     printf("Union: ");
     Conjunto conjUnion = conjunto_union(conj, conj2);

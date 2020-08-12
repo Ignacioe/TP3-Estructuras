@@ -134,13 +134,16 @@ Conjunto conjunto_inicializar(){
 
 Conjunto conjunto_union(Conjunto conjuntoA, Conjunto conjuntoB){
   Conjunto nuevo = conjunto_inicializar();
+  Intervalo *aux;
   GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
   while (indexA != NULL){
-    conjunto_agregar_intervalo(nuevo, indexA->dato);
+    aux = intervalo_crear(indexA->dato->inicio, indexA->dato->final);
+    conjunto_agregar_intervalo(nuevo, aux);
     indexA = indexA->sig;
   }
   while (indexB != NULL){
-    conjunto_agregar_intervalo(nuevo, indexB->dato);
+    aux = intervalo_crear(indexB->dato->inicio, indexB->dato->final);
+    conjunto_agregar_intervalo(nuevo, aux);
     indexB = indexB->sig;
   }
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
@@ -153,11 +156,6 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
   GNodo *indexA = conjuntoA->primero, *indexB = conjuntoB->primero;
   Intervalo *interseccion;
   while(indexA != NULL && indexB != NULL){
-    printf("Entro con: \n");
-    intervalo_imprimir(indexA->dato);
-    printf("\n");
-    intervalo_imprimir(indexB->dato);
-    printf("\n");
     if(intervalo_interseca(indexA->dato, indexB->dato)){
       interseccion = intervalo_interseccion(indexA->dato, indexB->dato);
       conjunto_agregar_intervalo(nuevo, interseccion);
@@ -171,4 +169,36 @@ Conjunto conjunto_interseccion(Conjunto conjuntoA, Conjunto conjuntoB){
   nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
   conjunto_colapsar(nuevo);
   return nuevo;
+}
+
+Conjunto conjunto_clonar(Conjunto conj){
+  Conjunto nuevo = conjunto_inicializar();
+  Intervalo *aux;
+  GNodo *indexA = conj->primero;
+  while (indexA != NULL){
+    aux = intervalo_crear(indexA->dato->inicio, indexA->dato->final);
+    conjunto_agregar_intervalo(nuevo, aux);
+    indexA = indexA->sig;
+  }
+  return nuevo;
+}
+
+void conjunto_restar_intervalo(Conjunto conj, Intervalo *inter){
+  GNodo *index = conj->primero;
+  while (index != NULL){
+    if(intervalo_interseca(inter, index->dato)){
+
+    }
+  }
+}
+
+Conjunto conjunto_resta(Conjunto conjuntoA, Conjunto conjuntoB){
+  Conjunto nuevo = conjunto_clonar(conjuntoA);
+  GNodo *index = conjuntoB->primero;
+  while (index != NULL){
+    conjunto_restar_intervalo(nuevo, index->dato);
+  }
+}
+
+Conjunto conjunto_complemento(Conjunto conj){
 }
