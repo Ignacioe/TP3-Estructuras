@@ -184,11 +184,43 @@ Conjunto conjunto_clonar(Conjunto conj){
 }
 
 void conjunto_restar_intervalo(Conjunto conj, Intervalo *inter){
-  GNodo *index = conj->primero;
-  while (index != NULL){
+  GNodo *index = conj->primero, *nodoAux = malloc(sizeof(GNodo));;
+  Intervalo *aux;
+  int bandera = 0;
+  while (index != NULL && bandera == 0){
+    printf("\nentro con: \n");
+    conjunto_imprimir(conj);
+    intervalo_imprimir(index->dato);    
+    printf("\n");
+    intervalo_imprimir(inter);
+    printf("\n");
+    if(index->dato->final >= inter->final) bandera = 1;
     if(intervalo_interseca(inter, index->dato)){
+      printf("intersecan\n");
 
+      if(inter->final == index->dato->inicio) index->dato->inicio +=1; 
+      if(inter->inicio == index->dato->final) index->dato->final -=1;
+
+      if(inter->inicio > index->dato->inicio){
+        if(inter->final < index->dato->final){
+          aux = intervalo_crear(inter->final, index->dato->final);
+          nodoAux->sig = index->sig;
+          nodoAux->ant = index;
+          nodoAux->dato = aux;
+          index->sig = nodoAux;
+        } 
+        index->dato->final = inter-> inicio;
+      } else {
+        if(inter->final >= index->dato->final){
+          if(index->ant != NULL) index->ant->sig = index->sig;
+          if(index->ant != NULL) index->sig->ant = index->ant;
+          intervalo_destruir(index->dato);
+        } else {
+          index->dato->inicio = inter->final;
+        }
+      }
     }
+    index = index->sig;
   }
 }
 
@@ -197,8 +229,9 @@ Conjunto conjunto_resta(Conjunto conjuntoA, Conjunto conjuntoB){
   GNodo *index = conjuntoB->primero;
   while (index != NULL){
     conjunto_restar_intervalo(nuevo, index->dato);
+    index = index->sig;
   }
-}
-
-Conjunto conjunto_complemento(Conjunto conj){
+  nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
+  conjunto_colapsar(nuevo);
+  return nuevo;
 }
