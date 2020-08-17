@@ -20,14 +20,19 @@ typedef Extremos *Conjunto;
 typedef int (*Compara) (Intervalo *dato1, Intervalo *dato2);
 
 /**
- * Agrega un intervalo a un conjunto.
+ * Inicializa un conjunto
+ */
+Conjunto conjunto_inicializar();
+
+/**
+ * Agrega un intervalo al final del conjunto.
  */
 void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
 
 /**
- * Crea un nuevo conjunto definido por comprension.
+ * Agrega un nodo al principio del conjunto.
  */
-Conjunto conjunto_comprension(char* ley);
+Conjunto conjunto_append(GNodo *nodo, Conjunto conj);
 
 /**
  * Imprime en pantalla un conjunto.
@@ -35,22 +40,22 @@ Conjunto conjunto_comprension(char* ley);
 void conjunto_imprimir(Conjunto dato);
 
 /**
- * 
+ * Libera la memoria de un conjunto.
  */
-Conjunto conjunto_append(GNodo *nodo, Conjunto conj);
+void conjunto_destruir(Conjunto conj);
 
 /**
- * 
+ * Une dos conjuntos de manera ordenada.
  */
 Conjunto conjunto_merge(Conjunto conj1, Conjunto conj2, Compara c);
 
 /**
- * 
+ * Divide un conjunto en dos partes.
  */
 Conjunto conjunto_split(Conjunto conj);
 
 /**
- * 
+ * Ordena un conjunto pediante el algoritmo mergeSort
  */
 Conjunto conjunto_mergeSort(Conjunto conj, Compara c);
 
@@ -58,11 +63,6 @@ Conjunto conjunto_mergeSort(Conjunto conj, Compara c);
  * Recorre la lista juntando los intervalos solapados
  */
 void conjunto_colapsar(Conjunto conj);
-
-/**
- * Inicializa un conjunto
- */
-Conjunto conjunto_inicializar();
 
 /**
  * Devuelve la union de dos conjuntos.

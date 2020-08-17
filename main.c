@@ -6,6 +6,12 @@
 #include "./Intervalo/intervalo.h"
 
 int main(){
+    
+
+
+
+
+    /*Ejemplos:
     Conjunto conj = conjunto_inicializar();
     Intervalo *inter1 = intervalo_crear(1,10);
     Intervalo *inter2 = intervalo_crear(12,20);    
@@ -24,7 +30,6 @@ int main(){
     conj = conjunto_mergeSort(conj, &intervalo_comparar);
     conjunto_colapsar(conj);
     conjunto_imprimir(conj);
-
 
     Conjunto conj2 = conjunto_inicializar();
     printf("\nConjunto 2: \n");
@@ -50,8 +55,9 @@ int main(){
     conjunto_imprimir(conjResta);
 
     printf("Complemento: ");
-    Conjunto conjComp = conjunto_complemento(conj);
+    Conjunto conjComp = conjunto_complemento(conj2);
     conjunto_imprimir(conjComp);
 
     printf("Fin\n");
+    */
 }

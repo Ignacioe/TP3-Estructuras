@@ -4,6 +4,14 @@
 #include <string.h>
 #include <limits.h>
 
+Conjunto conjunto_inicializar(){
+  Conjunto conj = malloc(sizeof(Extremos));
+  conj->primero = NULL;
+  conj->ultimo = NULL;
+  conj->cantidad = 0;
+  return conj;
+}
+
 void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
   GNodo *nuevo = malloc(sizeof(GNodo));
   nuevo->dato = interv;
@@ -18,6 +26,15 @@ void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
   conj->ultimo = nuevo;
 }
 
+Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
+  nodo->ant = NULL;
+  nodo->sig = conj->primero;
+  conj->primero->ant = nodo;
+  conj->primero = nodo;
+  conj->cantidad++;
+  return conj;
+}
+
 void conjunto_imprimir(Conjunto conj){
   GNodo *index = conj->primero;
   printf("[");
@@ -29,20 +46,13 @@ void conjunto_imprimir(Conjunto conj){
   printf("]\n");
 }
 
-Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
-  nodo->ant = NULL;
-  nodo->sig = conj->primero;
-  conj->primero->ant = nodo;
-  conj->primero = nodo;
-  conj->cantidad++;
-  return conj;
-}
-
 void conjunto_destruir(Conjunto conj){
-  GNodo *index = conj->primero;
-  while(index != NULL){
-    intervalo_destruir(index->dato);
-    index = index->sig;
+  GNodo *aux;
+  while(conj->primero != NULL){
+    aux = conj->primero;
+    conj->primero = conj->primero->sig;
+    intervalo_destruir(aux->dato);
+    free(aux);
   }
   free(conj);
 }
@@ -133,14 +143,6 @@ void conjunto_colapsar(Conjunto conj){
   }
 }
 
-Conjunto conjunto_inicializar(){
-  Conjunto conj = malloc(sizeof(Extremos));
-  conj->primero = NULL;
-  conj->ultimo = NULL;
-  conj->cantidad = 0;
-  return conj;
-}
-
 Conjunto conjunto_union(Conjunto conjuntoA, Conjunto conjuntoB){
   Conjunto nuevo = conjunto_inicializar();
   Intervalo *aux;
@@ -193,23 +195,17 @@ Conjunto conjunto_clonar(Conjunto conj){
 }
 
 void conjunto_restar_intervalo(Conjunto conj, Intervalo *inter){
-  conjunto_imprimir(conj);
-  intervalo_imprimir(inter);
   GNodo *index = conj->primero, *nodoAux = malloc(sizeof(GNodo));
   Intervalo *aux;
   int bandera = 0;
   while (index != NULL && bandera == 0){
-    printf("index->dato->inicio: %d", index->dato->inicio);
-    printf("index->dato->final: %d", index->dato->final);
-    printf("inter->inicio: %d", inter->inicio);
-    printf("inter->final: %d", inter->final);
     if(index->dato->final >= inter->final) bandera = 1;
     if(intervalo_interseca(inter, index->dato)){
       if(inter->inicio > index->dato->inicio){
         if(inter->final < index->dato->final){
           aux = intervalo_crear(inter->final +1, index->dato->final);
           nodoAux->sig = index->sig;
-          index->sig->ant = nodoAux;
+          if(index->sig != NULL) index->sig->ant = nodoAux;
           nodoAux->ant = index;
           nodoAux->dato = aux;
           index->sig = nodoAux;
@@ -253,8 +249,6 @@ Conjunto conjunto_complemento(Conjunto conj){
   Conjunto universo = conjunto_inicializar();
   Intervalo *aux = intervalo_crear(INT_MIN+1, INT_MAX-1);
   conjunto_agregar_intervalo(universo, aux);
-  printf("entro a restar\n");
   Conjunto nuevo = conjunto_resta(universo, conj);
-  printf("salgo de restar \n");
   return nuevo;
 }
