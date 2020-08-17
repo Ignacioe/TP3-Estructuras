@@ -4,14 +4,10 @@
 #include <time.h>
 #include "./Conjunto/conjunto.h"
 #include "./Intervalo/intervalo.h"
+#include "./Tree/tree.h"
+#include "./Hash/hash.h"
 
 int main(){
-    
-
-
-
-
-    /*Ejemplos:
     Conjunto conj = conjunto_inicializar();
     Intervalo *inter1 = intervalo_crear(1,10);
     Intervalo *inter2 = intervalo_crear(12,20);    
@@ -57,7 +53,23 @@ int main(){
     printf("Complemento: ");
     Conjunto conjComp = conjunto_complemento(conj2);
     conjunto_imprimir(conjComp);
+    printf("\n");
+
+    Tree arbol = tree_crear();
+
+    arbol = tree_insertar(arbol, conjComp, "Complemento");
+    arbol = tree_insertar(arbol, conjUnion, "Union");
+    arbol = tree_insertar(arbol, conj2, "4");
+    arbol = tree_insertar(arbol, conj2, "10");
+    arbol = tree_insertar(arbol, conj, "1");
+    arbol = tree_insertar(arbol, conjInter, "Inter");
+    arbol = tree_insertar(arbol, conjResta, "Resta");
+    arbol = tree_insertar(arbol, conj, "1");
+    
+    tree_imprimir(arbol);
+
+
 
     printf("Fin\n");
-    */
+    
 }
