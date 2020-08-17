@@ -8,10 +8,10 @@
 int main(){
     Conjunto conj = conjunto_inicializar();
     Intervalo *inter1 = intervalo_crear(1,10);
-    Intervalo *inter2 = intervalo_crear(6,8);    
-    Intervalo *inter3 = intervalo_crear(12,14);
-    Intervalo *inter4 = intervalo_crear(16,17);
-    Intervalo *inter5 = intervalo_crear(10,14);
+    Intervalo *inter2 = intervalo_crear(12,20);    
+    Intervalo *inter3 = intervalo_crear(23,30);
+    Intervalo *inter4 = intervalo_crear(34,40);
+    Intervalo *inter5 = intervalo_crear(10,12);
     Intervalo *inter6 = intervalo_crear(2,3);    
     Intervalo *inter7 = intervalo_crear(4,4);
     Intervalo *inter8 = intervalo_crear(4,7);
@@ -48,6 +48,10 @@ int main(){
     printf("Resta: ");
     Conjunto conjResta = conjunto_resta(conj, conj2);
     conjunto_imprimir(conjResta);
+
+    printf("Complemento: ");
+    Conjunto conjComp = conjunto_complemento(conj);
+    conjunto_imprimir(conjComp);
 
     printf("Fin\n");
 }

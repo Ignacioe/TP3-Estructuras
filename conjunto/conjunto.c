@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
   GNodo *nuevo = malloc(sizeof(GNodo));
@@ -18,12 +19,12 @@ void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
 }
 
 void conjunto_imprimir(Conjunto conj){
-  GNodo *nodo = conj->primero;
+  GNodo *index = conj->primero;
   printf("[");
-  while(nodo != NULL){
-    intervalo_imprimir(nodo->dato);
-    if(nodo->sig != NULL) printf(",");
-    nodo = nodo->sig;
+  while(index != NULL){
+    intervalo_imprimir(index->dato);
+    if(index->sig != NULL) printf(",");
+    index = index->sig;
   }
   printf("]\n");
 }
@@ -34,8 +35,16 @@ Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
   conj->primero->ant = nodo;
   conj->primero = nodo;
   conj->cantidad++;
-
   return conj;
+}
+
+void conjunto_destruir(Conjunto conj){
+  GNodo *index = conj->primero;
+  while(index != NULL){
+    intervalo_destruir(index->dato);
+    index = index->sig;
+  }
+  free(conj);
 }
 
 Conjunto conjunto_merge(Conjunto conj1, Conjunto conj2, Compara c) {
@@ -184,40 +193,46 @@ Conjunto conjunto_clonar(Conjunto conj){
 }
 
 void conjunto_restar_intervalo(Conjunto conj, Intervalo *inter){
-  GNodo *index = conj->primero, *nodoAux = malloc(sizeof(GNodo));;
+  conjunto_imprimir(conj);
+  intervalo_imprimir(inter);
+  GNodo *index = conj->primero, *nodoAux = malloc(sizeof(GNodo));
   Intervalo *aux;
   int bandera = 0;
   while (index != NULL && bandera == 0){
-    printf("\nentro con: \n");
-    conjunto_imprimir(conj);
-    intervalo_imprimir(index->dato);    
-    printf("\n");
-    intervalo_imprimir(inter);
-    printf("\n");
+    printf("index->dato->inicio: %d", index->dato->inicio);
+    printf("index->dato->final: %d", index->dato->final);
+    printf("inter->inicio: %d", inter->inicio);
+    printf("inter->final: %d", inter->final);
     if(index->dato->final >= inter->final) bandera = 1;
     if(intervalo_interseca(inter, index->dato)){
-      printf("intersecan\n");
-
-      if(inter->final == index->dato->inicio) index->dato->inicio +=1; 
-      if(inter->inicio == index->dato->final) index->dato->final -=1;
-
       if(inter->inicio > index->dato->inicio){
         if(inter->final < index->dato->final){
-          aux = intervalo_crear(inter->final, index->dato->final);
+          aux = intervalo_crear(inter->final +1, index->dato->final);
           nodoAux->sig = index->sig;
+          index->sig->ant = nodoAux;
           nodoAux->ant = index;
           nodoAux->dato = aux;
           index->sig = nodoAux;
         } 
-        index->dato->final = inter-> inicio;
+        index->dato->final = inter->inicio -1;
       } else {
         if(inter->final >= index->dato->final){
-          if(index->ant != NULL) index->ant->sig = index->sig;
-          if(index->ant != NULL) index->sig->ant = index->ant;
+          if(index->ant != NULL){
+            index->ant->sig = index->sig;
+          }
+          if(index->sig != NULL){
+            index->sig->ant = index->ant;
+          }
           intervalo_destruir(index->dato);
         } else {
           index->dato->inicio = inter->final;
         }
+      }
+      if(inter->final == index->dato->inicio) {
+        index->dato->inicio = index->dato->inicio +1; 
+      } 
+      if(inter->inicio == index->dato->final) {
+        index->dato->final = index->dato->final-1;
       }
     }
     index = index->sig;
@@ -231,7 +246,15 @@ Conjunto conjunto_resta(Conjunto conjuntoA, Conjunto conjuntoB){
     conjunto_restar_intervalo(nuevo, index->dato);
     index = index->sig;
   }
-  nuevo = conjunto_mergeSort(nuevo, &intervalo_comparar);
-  conjunto_colapsar(nuevo);
+  return nuevo;
+}
+
+Conjunto conjunto_complemento(Conjunto conj){
+  Conjunto universo = conjunto_inicializar();
+  Intervalo *aux = intervalo_crear(INT_MIN+1, INT_MAX-1);
+  conjunto_agregar_intervalo(universo, aux);
+  printf("entro a restar\n");
+  Conjunto nuevo = conjunto_resta(universo, conj);
+  printf("salgo de restar \n");
   return nuevo;
 }
