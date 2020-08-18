@@ -12,6 +12,22 @@ Conjunto conjunto_inicializar(){
   return conj;
 }
 
+int conjunto_igualdad(Conjunto conjA, Conjunto conjB){
+  int band = 0;
+  GNodo *indexA = conjA->primero, *indexB = conjB->primero;
+  while(indexA != NULL && indexB != NULL && band == 0){
+    if(intervalo_coinciden(indexA->dato, indexB->dato) != 0){
+      band = 1;
+    }
+    indexA = indexA->sig;
+    indexB = indexB->sig;
+  }
+  if(indexA != NULL || indexB != NULL){
+    band = 1
+  }
+  return band;
+}
+
 void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv){
   GNodo *nuevo = malloc(sizeof(GNodo));
   nuevo->dato = interv;

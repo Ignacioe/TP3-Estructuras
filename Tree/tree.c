@@ -48,7 +48,12 @@ Tree tree_insertar(Tree tree, Conjunto conj, char* alias) {
         tree->altura = tree_nueva_altura(tree);
         tree = tree_balancear(tree);
     } else {
-        printf("El alias %s ya ha sido utilizado.\n", alias);
+      if(conjunto_igualdad(conj, tree->conj) != 0){
+        conjunto_destruir(tree->conj);
+        tree->conj = conj;
+      } else {
+        conjunto_destruir(conj);
+      }
     }
   }
   return tree;

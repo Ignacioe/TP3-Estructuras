@@ -5,7 +5,7 @@
 #include <math.h>
 #include <limits.h>
 
-#define MAXSIZE 997
+#define MAXSIZE 993
 
 Tree *hash_crear() {
     Tree *tabla = malloc(sizeof(Tree) * MAXSIZE);

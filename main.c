@@ -7,28 +7,64 @@
 #include "./Tree/tree.h"
 #include "./Hash/hash.h"
 
-#define BUFFER 1000
+#define MAXBUFFER 200
 
-void imprimir_readme(){
+void imprimir_menu(){
     printf("Formatos validos de comandos:\n");
-    printf("    - Imprimir un conjunto:\n        imprimir alias\n");
-    printf("    - Agregar conjuntos por extension:\n        alias = [...]\n");
-    printf("    - Agregar conjuntos por comprension:\n        alias = [x/a<=x<=b]\n");
-    printf("    - Union de intervalos:\n        aliasUnion = aliasA | aliasB\n");
-    printf("    - Interseccion de intervalos:\n        aliasInter = aliasA & aliasB\n");
-    printf("    - Resta de intervalos:\n        aliasResta = aliasA - aliasB\n");
-    printf("    - Complemento de un intervalo:\n        aliasComp = ~aliasA\n");
+    printf("    - Imprimir un conjunto:\n        imprimir alias\n\n");
+    printf("    - Agregar conjuntos por extension:\n        alias = [...]\n\n");
+    printf("    - Agregar conjuntos por comprension:\n        alias = [x/a<=x<=b]\n\n");
+    printf("    - Union de intervalos:\n        aliasUnion = aliasA | aliasB\n\n");
+    printf("    - Interseccion de intervalos:\n        aliasInter = aliasA & aliasB\n\n");
+    printf("    - Resta de intervalos:\n        aliasResta = aliasA - aliasB\n\n");
+    printf("    - Complemento de un intervalo:\n        aliasComp = ~aliasA\n\n");
     printf("    - Salir del interprete:\n        salir\n");
+}
+
+int is_char_digit(char caracter){
+    int exit = 1;
+    if((char == '0') || (char == '1') || (char == '2') || (char == '3') || (char == '4') ||(char == '5')
+    || (char == '6') || (char == '7') || (char == '8') || (char == '9') || (char == '-')){
+        exit = 0;
+    }
+    return exit;
 }
 
 int main(){
     int input = 0;
-    //char comando[BUFFER];
+    char alias[MAXBUFFER], buffer[MAXBUFFER];
+    Tree *tabla = hash_crear();
+    Conjunto auxPrint;
     while(input != -1){
-        imprimir_readme();
-        input = -1;
+        imprimir_menu();
+        fgets(buffer, MAXBUFFER, stdin);
+        sscanf(buffer, "%s %[^\n]", alias, buffer);
+        if(strcmp(alias, "imprimir") == 0){
+            auxPrint = hash_seek(buffer);
+            conjunto_imprimir(auxPrint);
+        } else {
+            if(strcmp(alias, "salir") == 0){
+                input = -1;
+                printf("Saliendo del interprete . . .\n");
+            } else {
+                if(buffer[0] == '=' && buffer[1] == ' '){
+                    if(buffer[2] == "{"){
+                        if(is_char_digit(buffer[3]) == 0){
+                            tabla = hash_insertar(tabla, leer_extension(buffer), alias);
+                        } else {
+                            tabla = hash_insertar(tabla, leer_comprension(buffer), alias);
+                        }
+                    } else {
+                        tabla = hash_insertar(tabla, operar(buffer), alias);
+                    }
+                } else {
+                    printf("Formato no aceptado . . .\n Intente nuevamente \n");
+                }
+            }
+        }
     }
 
+    
 
     //empiezan ejemplos
     Conjunto conj = conjunto_inicializar();
@@ -88,4 +124,5 @@ int main(){
     hash_imprimir(hash);
 
     printf("\nFin\n");
+    return 0;
 }
