@@ -7,6 +7,20 @@ Tree tree_crear() {
   return NULL;
 }
 
+Conjunto tree_seek(Tree tree, char *alias){
+  if(strcmp(tree->alias, alias) == 0){
+    return tabla->conj;
+  } else {
+    if(strcmp(tree->alias, alias) > 0){
+      if(tree->izq == NULL) return NULL;
+      return tree_seek(tree->izq, alias);
+    } else {
+      if(tree->der == NULL) return NULL;
+      return tree_seek(tree->der, alias);
+    }
+  }
+}
+
 Tree tree_nuevo_nodo(Conjunto conj, char* alias) {
   Tree nodo = malloc(sizeof(Nodo));
   nodo->alias = alias;

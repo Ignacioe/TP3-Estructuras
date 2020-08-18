@@ -23,8 +23,8 @@ void imprimir_menu(){
 
 int is_char_digit(char caracter){
     int exit = 1;
-    if((char == '0') || (char == '1') || (char == '2') || (char == '3') || (char == '4') ||(char == '5')
-    || (char == '6') || (char == '7') || (char == '8') || (char == '9') || (char == '-')){
+    if((caracter == '0') || (caracter == '1') || (caracter == '2') || (caracter == '3') || (caracter == '4') ||(caracter == '5')
+    || (caracter == '6') || (caracter == '7') || (caracter == '8') || (caracter == '9') || (caracter == '-')){
         exit = 0;
     }
     return exit;
@@ -40,15 +40,16 @@ int main(){
         fgets(buffer, MAXBUFFER, stdin);
         sscanf(buffer, "%s %[^\n]", alias, buffer);
         if(strcmp(alias, "imprimir") == 0){
-            auxPrint = hash_seek(buffer);
+            auxPrint = hash_seek(tabla, buffer);
             conjunto_imprimir(auxPrint);
         } else {
             if(strcmp(alias, "salir") == 0){
                 input = -1;
+                hash_eliminar(tabla);
                 printf("Saliendo del interprete . . .\n");
             } else {
                 if(buffer[0] == '=' && buffer[1] == ' '){
-                    if(buffer[2] == "{"){
+                    if(buffer[2] == '{'){
                         if(is_char_digit(buffer[3]) == 0){
                             tabla = hash_insertar(tabla, leer_extension(buffer), alias);
                         } else {
@@ -63,9 +64,6 @@ int main(){
             }
         }
     }
-
-    
-
     //empiezan ejemplos
     Conjunto conj = conjunto_inicializar();
     Intervalo *inter1 = intervalo_crear(1,10);

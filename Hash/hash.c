@@ -40,6 +40,12 @@ int hash_key(char* alias){
     return key;
 }
 
+Conjunto hash_seek(Tree *tabla, char* alias){
+    int key = hash_key(alias);
+    Conjunto conj = tree_seek(tabla[key], alias);
+    return conj;
+}
+
 Tree *hash_insertar(Tree *tree, Conjunto conj, char *alias){
     int key = hash_key(alias);
     tree[key] = tree_insertar(tree[key], conj, alias);

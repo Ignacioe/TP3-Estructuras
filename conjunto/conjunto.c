@@ -23,7 +23,7 @@ int conjunto_igualdad(Conjunto conjA, Conjunto conjB){
     indexB = indexB->sig;
   }
   if(indexA != NULL || indexB != NULL){
-    band = 1
+    band = 1;
   }
   return band;
 }

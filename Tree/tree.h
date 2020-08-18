@@ -20,6 +20,11 @@ typedef Nodo *Tree;
 Tree tree_crear();
 
 /**
+ * Busca un conjunto en un arbol.
+ */
+Conjunto tree_seek(Tree tabla, char *alias);
+
+/**
  * Devuelve un nuevo nodo con el valor de conjunto dado
  */
 Tree tree_nuevo_nodo(Conjunto conj, char *alias);

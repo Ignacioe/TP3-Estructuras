@@ -25,6 +25,11 @@ typedef int (*Compara) (Intervalo *dato1, Intervalo *dato2);
 Conjunto conjunto_inicializar();
 
 /**
+ * Devuelve 0 si dos conjunto son iguales.
+ */
+int conjunto_igualdad(Conjunto conjA, Conjunto conjB);
+
+/**
  * Agrega un intervalo al final del conjunto.
  */
 void conjunto_agregar_intervalo(Conjunto conj, Intervalo *interv);
