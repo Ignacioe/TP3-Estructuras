@@ -16,12 +16,12 @@ void hash_eliminar(Tree *tabla);
 /**
  * Devuelve una key para un alias dado
  */
-void hash_key(char *alias);
+int hash_key(char *alias);
 
 /**
  * Inserto un conjunto y su alias en la tabla hash
  */
-void hash_insertar(Tree *, char *alias, Conjunto conj);
+Tree *hash_insertar(Tree *, Conjunto conj, char *alias);
 
 /**
  * Imprimo la tabla hash

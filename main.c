@@ -23,12 +23,14 @@ void imprimir_readme(){
 
 int main(){
     int input = 0;
-    char comando[BUFFER];
+    //char comando[BUFFER];
     while(input != -1){
         imprimir_readme();
         input = -1;
     }
 
+
+    //empiezan ejemplos
     Conjunto conj = conjunto_inicializar();
     Intervalo *inter1 = intervalo_crear(1,10);
     Intervalo *inter2 = intervalo_crear(12,20);    
@@ -83,8 +85,7 @@ int main(){
     hash = hash_insertar(hash, conj, "1");
     hash = hash_insertar(hash, conjInter, "Inter");
     hash = hash_insertar(hash, conjResta, "Resta");
-    
     hash_imprimir(hash);
 
-    printf("Fin\n");
+    printf("\nFin\n");
 }

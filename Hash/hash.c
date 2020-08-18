@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <limits.h>
 
-#define MAXSIZE 991
+#define MAXSIZE 997
 
 Tree *hash_crear() {
     Tree *tabla = malloc(sizeof(Tree) * MAXSIZE);
@@ -28,15 +29,18 @@ void hash_eliminar(Tree *tabla){
 
 int hash_key(char* alias){
     long long int key = 1, index = 0;
-    while(alias[index] != "\0"){
+    while(alias[index] != '\0'){
         key *= alias[index];
+        key = key % INT_MAX;
+        index++;
     }
     key *= (MAXSIZE - strlen(alias));
+    key = key % INT_MAX;
     key = key % MAXSIZE;
     return key;
 }
 
-Tree *hash_insertar(Tree *tree, char *alias, Conjunto conj){
+Tree *hash_insertar(Tree *tree, Conjunto conj, char *alias){
     int key = hash_key(alias);
     tree[key] = tree_insertar(tree[key], conj, alias);
     return tree;
@@ -49,5 +53,6 @@ void hash_imprimir(Tree *tree){
             printf("Posicion: %d\n", index);
             tree_imprimir(tree[index]);
         }
+        index++;
     }
 }
