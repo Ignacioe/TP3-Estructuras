@@ -23,4 +23,9 @@ void hash_key(char *alias);
  */
 void hash_insertar(Tree *, char *alias, Conjunto conj);
 
+/**
+ * Imprimo la tabla hash
+ */
+void hash_imprimir(Tree *tree);
+
 #endif                          /* __HASH_H__ */
