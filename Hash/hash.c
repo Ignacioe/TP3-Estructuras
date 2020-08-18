@@ -41,3 +41,13 @@ Tree *hash_insertar(Tree *tree, char *alias, Conjunto conj){
     tree[key] = tree_insertar(tree[key], conj, alias);
     return tree;
 }
+
+void hash_imprimir(Tree *tree){
+    int index = 0;
+    while(index < MAXSIZE){
+        if(tree[index] != NULL){
+            printf("Posicion: %d\n", index);
+            tree_imprimir(tree[index]);
+        }
+    }
+}
