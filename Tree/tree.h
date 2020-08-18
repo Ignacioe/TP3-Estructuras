@@ -35,48 +35,52 @@ void tree_destruir(Tree tree);
 void tree_destruir_nodo(Nodo *tree);
 
 /**
- * Inserta un conjunto dado en el arbol indicado
+ * Inserta un conjunto dado en el arbol indicado.
  */
 Tree tree_insertar(Tree tree, Conjunto conj, char *alias);
 
 /**
- * Devuelve la altura asignada al arbol dado
+ * Devuelve la altura asignada al arbol dado.
  */
 int tree_altura(Tree tree);
 
 /**
- * Calcula y devuelve la altura que debe tener el arbol dado
+ * Calcula y devuelve la altura que debe tener el arbol dado.
  */
 int tree_nueva_altura(Tree tree);
 
 /**
- * Devuelve el factor de balance del arbol dado
+ * Devuelve el factor de balance del arbol dado.
  */
 int tree_balance_factor(Tree tree);
 
 /**
- * Aplica la rotacion a derecha al arbol dado
+ * Aplica la rotacion a derecha al arbol dado.
  */
 Tree tree_rotar_derecha(Tree tree);
 
 /**
- * Aplica la rotacion a derecha al arbol dado
+ * Aplica la rotacion a derecha al arbol dado.
  */
 Tree tree_rotar_izquierda(Tree tree);
 
 /**
- * Balancea el arbol dado
+ * Balancea un arbol dado.
  */
 Tree tree_balancear(Tree tree);
 
 /**
- * Elimina un conjunto dado por el alias en el arbol indicado
+ * Obtiene el hijo minimo de un arbol.
+ */
+Tree tree_obtener_minimo(Tree tree);
+
+/**
+ * Elimina un conjunto dado por el alias en el arbol indicado.
  */
 Tree tree_eliminar(Tree tree, char *alias);
 
 /**
- * Recorre un arbol dado con DFS y 
- * aplica la funcion visitante a cada nodo
+ * Imprime todos los conjuntos almacenados en el arbol.
  */
 void tree_imprimir(Tree tree);
 

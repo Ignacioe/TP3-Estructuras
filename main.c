@@ -60,11 +60,9 @@ int main(){
     arbol = tree_insertar(arbol, conjComp, "Complemento");
     arbol = tree_insertar(arbol, conjUnion, "Union");
     arbol = tree_insertar(arbol, conj2, "4");
-    arbol = tree_insertar(arbol, conj2, "10");
     arbol = tree_insertar(arbol, conj, "1");
     arbol = tree_insertar(arbol, conjInter, "Inter");
     arbol = tree_insertar(arbol, conjResta, "Resta");
-    arbol = tree_insertar(arbol, conj, "1");
     
     tree_imprimir(arbol);
 

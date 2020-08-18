@@ -98,21 +98,15 @@ Tree tree_rotar_izquierda(Tree tree) {
 Tree tree_balancear(Tree tree) {
   if (tree) {
     int balanceFactor = tree_balance_factor(tree);
-    // Caso izquierda
     if (balanceFactor == 2) {
-      // Caso izquierda-derecha
       if (tree_balance_factor(tree->izq) < 0)
         tree->izq = tree_rotar_izquierda(tree->izq);
-      // Rotacion en ambos casos
       tree = tree_rotar_derecha(tree);
 
     }
-    // Caso derecha
     if (balanceFactor == -2) {
-      // Caso derecha-izquierda
       if (tree_balance_factor(tree->der) > 0)
         tree->der = tree_rotar_derecha(tree->der);
-      // Rotacion en ambos casos
       tree = tree_rotar_izquierda(tree);
     }
   }
@@ -133,34 +127,26 @@ Tree tree_obtener_minimo(Tree tree) {
 
 Tree tree_eliminar(Tree tree, char* alias) {
   if (tree) {
-    //si encontre el nodo
     if (strcmp(tree->alias, alias) == 0){
-      // si es una hoja
       if (!tree->der && !tree->izq) {
         tree_destruir_nodo(tree);
         tree = NULL;
       } else {
-        // tiene un solo hijo
         if (!tree->der || !tree->izq) {
           Tree nodoAux = tree->izq ? tree->izq : tree->der;
           tree_destruir_nodo(tree);
           tree = nodoAux;
         }
-        // tiene ambos hijos
         else {
           Tree nodoAux = tree_obtener_minimo(tree->der);
-
           tree->conj = nodoAux->conj;
           tree->alias = nodoAux->alias;
-
-          // elimino el conjunto movido ya que ahora no pertenece al hijo derecho
           tree->der = tree_eliminar(tree->der, alias);
         }
-
         tree->altura = tree_nueva_altura(tree);
       }
     } else {
-      if (strcmp(tree->alias, alias)>0) {
+      if (strcmp(tree->alias, alias) > 0) {
         tree->izq = tree_eliminar(tree->izq, alias);
       } else {
         tree->der = tree_eliminar(tree->der, alias);
@@ -169,7 +155,6 @@ Tree tree_eliminar(Tree tree, char* alias) {
   } else {
     printf("El elemento a eliminar no se encuentra en el arbol\n");
   }
-
   return tree_balancear(tree);
 }
 
