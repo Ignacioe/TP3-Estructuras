@@ -13,4 +13,13 @@ Tree *hash_crear();
  */
 void hash_eliminar(Tree *tabla);
 
+/**
+ * Devuelve una key para un alias dado
+ */
+void hash_key(char *alias);
+
+/**
+ * Inserto un conjunto y su alias en la tabla hash
+ */
+void hash_insertar(Tree *, char *alias, Conjunto conj);
 #endif                          /* __HASH_H__ */
