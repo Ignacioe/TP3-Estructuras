@@ -111,9 +111,8 @@ Conjunto operar(char *buffer, Tree *tabla){
                     }
                 }
             } 
-        }
-        else {
-            printf("\n\n * *No se ha podido encontrar uno de los conjuntos * * \n\n");
+        } else {
+            printf("\n\n * * No se ha podido encontrar uno de los conjuntos * * \n\n");
         }
     }
     return NULL;
@@ -152,7 +151,7 @@ int main(){
                         if(aux != NULL) tabla = hash_insertar(tabla, aux, alias);
                     }
                 } else {
-                    printf("\n * * Formato no aceptado * *\n\n * *Intente nuevamente * *\n");
+                    printf("\n * * Formato no aceptado * *\n\n * * Intente nuevamente * *\n");
                 }
             }
         }

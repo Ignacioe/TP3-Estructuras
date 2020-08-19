@@ -44,7 +44,8 @@ int hash_key(char* alias){
 
 Conjunto hash_seek(Tree *tabla, char* alias){
     int key = hash_key(alias);
-    Tree aux = tabla[key];
+    Tree aux;
+    aux = tabla[key];
     Conjunto conj = tree_seek(aux, alias);
     return conj;
 }
