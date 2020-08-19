@@ -8,22 +8,26 @@ Tree tree_crear() {
 }
 
 Conjunto tree_seek(Tree tree, char *alias){
-  if(strcmp(tree->alias, alias) == 0){
-    return tabla->conj;
-  } else {
-    if(strcmp(tree->alias, alias) > 0){
-      if(tree->izq == NULL) return NULL;
-      return tree_seek(tree->izq, alias);
+  if(tree){
+    if(strcmp(tree->alias, alias) == 0){
+      return tree->conj;
     } else {
-      if(tree->der == NULL) return NULL;
-      return tree_seek(tree->der, alias);
+      if(strcmp(tree->alias, alias) > 0){
+        if(tree->izq == NULL) return NULL;
+        return tree_seek(tree->izq, alias);
+      } else {
+        if(tree->der == NULL) return NULL;
+        return tree_seek(tree->der, alias);
+      }
     }
   }
+  printf("\n * * Conjunto no encontrado * *\n\n");
+  return NULL;
 }
 
 Tree tree_nuevo_nodo(Conjunto conj, char* alias) {
   Tree nodo = malloc(sizeof(Nodo));
-  nodo->alias = alias;
+  strcpy(nodo->alias, alias);
   nodo->izq = NULL;
   nodo->der = NULL;
   nodo->conj = conj;
@@ -49,8 +53,9 @@ void tree_destruir_nodo(Nodo *tree) {
   }
 }
 
-Tree tree_insertar(Tree tree, Conjunto conj, char* alias) {
+Tree tree_insertar(Tree tree, Conjunto conj, char *alias) {
   if(tree == NULL) {
+    printf("\n\n * * Guardado * * \n\n");
     tree = tree_nuevo_nodo(conj, alias);
   } else {
     if(strcmp(tree->alias, alias) != 0){
@@ -62,12 +67,9 @@ Tree tree_insertar(Tree tree, Conjunto conj, char* alias) {
         tree->altura = tree_nueva_altura(tree);
         tree = tree_balancear(tree);
     } else {
-      if(conjunto_igualdad(conj, tree->conj) != 0){
-        conjunto_destruir(tree->conj);
-        tree->conj = conj;
-      } else {
-        conjunto_destruir(conj);
-      }
+      printf("\n\n * * Sobreescrito * * \n\n");
+      conjunto_destruir(tree->conj);
+      tree->conj = conj;
     }
   }
   return tree;

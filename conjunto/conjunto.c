@@ -53,13 +53,13 @@ Conjunto conjunto_append(GNodo *nodo, Conjunto conj) {
 
 void conjunto_imprimir(Conjunto conj){
   GNodo *index = conj->primero;
-  printf("[");
+  printf("{");
   while(index != NULL){
     intervalo_imprimir(index->dato);
     if(index->sig != NULL) printf(",");
     index = index->sig;
   }
-  printf("]\n");
+  printf("}\n");
 }
 
 void conjunto_destruir(Conjunto conj){

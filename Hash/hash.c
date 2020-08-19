@@ -20,8 +20,10 @@ Tree *hash_crear() {
 void hash_eliminar(Tree *tabla){
     int index = 0;
     while (index < MAXSIZE){
-        free(tabla[index]->alias);
-        tree_destruir(tabla[index]);
+        if(tabla[index] != NULL){
+            free(tabla[index]->alias);
+            tree_destruir(tabla[index]);
+        }
         index++;
     }
     free(tabla);
@@ -42,7 +44,8 @@ int hash_key(char* alias){
 
 Conjunto hash_seek(Tree *tabla, char* alias){
     int key = hash_key(alias);
-    Conjunto conj = tree_seek(tabla[key], alias);
+    Tree aux = tabla[key];
+    Conjunto conj = tree_seek(aux, alias);
     return conj;
 }
 
